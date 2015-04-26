@@ -1,0 +1,10 @@
+Include src/Sum.h
+Include src/Divide.h
+Include src/Multiply.h
+Include src/Pow.h
+Include src/Inverse.h
+Include src/NormalizeMinMax.h
+Include src/kMax.h
+Include src/Vector.h
+Library libpg_algebra.so
+Library m
