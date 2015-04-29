@@ -33,7 +33,7 @@ OBJS := $(addprefix bin/,$(SRC:.cpp=.o))
 TEST_SRC := $(shell find $(SRC_DIR) -name 'test.cpp') 
 TEST_OBJS := $(addprefix bin/,$(TEST_SRC:.cpp=.o))
 
-all: $(EXECUTABLE) $(LIBRARY)
+all: $(EXECUTABLE) $(LIBRARY) install
 $(EXECUTABLE): $(OBJS)
 
 CXXFLAGS := -fPIC -g -rdynamic -Wall -MMD $(addprefix -I,$(INCLUDE_PATHS))
@@ -49,7 +49,8 @@ $(EXECUTABLE) : $(OBJS) $(TEST_OBJS)
 	@echo "Build executable $@"
 	@$(CXX) $(OBJS) $(TEST_OBJS) -o $@ $(LDFLAGS) 
 	
-
+install:
+	pgcc_add_project ./*.pgproject
 
 bin/%.o: %.cpp
 	@mkdir -p `dirname $(@:.o=.d)`
