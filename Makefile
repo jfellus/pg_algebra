@@ -33,7 +33,7 @@ OBJS := $(addprefix bin/,$(SRC:.cpp=.o))
 TEST_SRC := $(shell find $(SRC_DIR) -name 'test.cpp') 
 TEST_OBJS := $(addprefix bin/,$(TEST_SRC:.cpp=.o))
 
-all: $(EXECUTABLE) $(LIBRARY) install
+all: $(EXECUTABLE) $(LIBRARY) install index
 $(EXECUTABLE): $(OBJS)
 
 CXXFLAGS := -fPIC -g -rdynamic -Wall -MMD $(addprefix -I,$(INCLUDE_PATHS))
@@ -51,6 +51,13 @@ $(EXECUTABLE) : $(OBJS) $(TEST_OBJS)
 	
 install:
 	pgcc_add_project ./*.pgproject
+
+
+index:
+	@rm -rf ./ind
+	@pgcc_indexer ./src/*.h ./src/*.cpp ./ind
+	
+	
 
 bin/%.o: %.cpp
 	@mkdir -p `dirname $(@:.o=.d)`
@@ -72,6 +79,9 @@ external_libs:
 	@sudo echo "thank you"
 	@sudo apt-get install $(APT_GET_DEPENDENCIES)
 	@echo "DONE"
+	
+	
+.PHONY: index
 	
 
 -include $(DEPENDS) 
