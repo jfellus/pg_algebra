@@ -43,6 +43,11 @@ public:
 		out.data = in;
 		out.n = out.h = in.n;
 	}
+
+	void process(Image& in) {
+		out.data = in.data;
+		out.n = out.h = in.n;
+	}
 };
 
 #endif /* VECTOR_H_ */
